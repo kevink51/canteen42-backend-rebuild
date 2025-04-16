@@ -15,7 +15,7 @@ const initializeFirebase = () => {
         try {
           const cleanedJson = process.env.FIREBASE_SERVICE_ACCOUNT
             .replace(/\\"/g, '"')  // Replace escaped quotes
-            .replace(/^"|"$/g, ''); // Remove surrounding quotes if present
+            .replace(/^"|"$/g, ''); // Remove wrapping quotes
 
           serviceAccount = JSON.parse(cleanedJson);
         } catch (secondError) {
@@ -31,6 +31,11 @@ const initializeFirebase = () => {
             throw parseError;
           }
         }
+      }
+
+      // Fix: decode private_key newlines
+      if (serviceAccount.private_key.includes('\\n')) {
+        serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
       }
 
       admin.initializeApp({
