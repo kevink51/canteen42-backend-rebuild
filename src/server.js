@@ -22,7 +22,8 @@ const discountRoutes = require('./routes/discountRoutes');
 const { verifyToken, isAdmin } = require('./middleware/auth');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
+
 
 app.use(cors());
 app.use(express.json());
