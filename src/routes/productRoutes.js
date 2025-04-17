@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
 
+router.get('/test', (req, res) => {
+  res.json({ message: 'Test route is working!' });
+});
+
+
 // Get all products
 router.get('/', productController.getAllProducts);
 
